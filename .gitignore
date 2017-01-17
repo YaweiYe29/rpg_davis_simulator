@@ -1,4 +1,5 @@
 *.pyc
 *.blend1
-datasets/full_datasets
+*.exr
+*.png
 datasets/rosbags
