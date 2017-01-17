@@ -213,17 +213,7 @@ if __name__ == '__main__':
             print(e)
                 
         bag.write(topic='/dvs/image_raw', msg=img_msg, t=init_time)
-        
-        z = dataset_utils.extract_depth(exr_img)
-        depth_msg = bridge.cv2_to_imgmsg(z, '32FC1')
-        depth_msg.header.stamp = init_time
-        try:
-            depthmap_pub.publish(depth_msg)
-        except CvBridgeError as e:
-            print(e)
-            
-        bag.write(topic='/dvs/depthmap', msg=depth_msg, t=init_time)
-           
+                 
     if not write_to_bag:
         # Do not start publishing events if no one is listening
         rate = rospy.Rate(100)
@@ -272,20 +262,7 @@ if __name__ == '__main__':
                     print(e)
                 
                 if write_to_bag:
-                    bag.write(topic='/dvs/image_raw', msg=img_msg, t=timestamp)
-                    
-            # publish depth_map
-            if write_to_bag or depthmap_pub.get_num_connections() > 0:
-                z = dataset_utils.extract_depth(exr_img)
-                depth_msg = bridge.cv2_to_imgmsg(z, '32FC1')
-                depth_msg.header.stamp = timestamp
-                try:
-                    depthmap_pub.publish(depth_msg)
-                except CvBridgeError as e:
-                        print(e)
- 
-                if write_to_bag:
-                    bag.write(topic='/dvs/depthmap', msg=depth_msg, t=timestamp)
+                    bag.write(topic='/dvs/image_raw', msg=img_msg, t=timestamp)                    
                 
             last_pub_img_timestamp = timestamp
         
