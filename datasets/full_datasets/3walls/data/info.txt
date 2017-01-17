@@ -1,0 +1,2 @@
+Blender scene: 3walls
+Render engine: BLENDER_RENDER
